@@ -162,7 +162,7 @@ async def _fetch_fleet_context() -> str:
             }
             alerts = [
                 {"type": "maintenance", "priority": "high", "message": "Vehicle V023 needs brake service in 3 days"},
-                {"type": "idle", "priority": "medium", "message": "8 vehicles idle > 2 hours at W Sahara"},
+                {"type": "idle", "priority": "medium", "message": "8 vehicles idle > 2 hours at Grand Prairie HQ"},
                 {"type": "safety", "priority": "low", "message": "New driver training module available"}
             ]
             safety_scores = FLEET_DATA["safety_scores"]
@@ -187,7 +187,7 @@ Recent Performance Data:
         return "Fleet data temporarily unavailable."
 
 
-CLAUDE_SYSTEM_PROMPT = """You are FleetPulse AI, an advanced fleet management intelligence assistant for Budget Rent a Car Las Vegas. You help fleet managers optimize operations across 8 locations with 50+ vehicles.
+CLAUDE_SYSTEM_PROMPT = """You are FleetPulse AI, an advanced fleet management intelligence assistant for K1 Logistics. You help fleet managers optimize operations across 5 locations with 50+ vehicles.
 
 ABOUT FLEETPULSE:
 FleetPulse is a GeoTab-powered fleet management platform that provides real-time analytics for:
@@ -221,14 +221,14 @@ For visualizations, structure your response with:
 - insights: Array of key takeaways
 
 FLEET LOCATIONS:
-1. Downtown - Main hub, highest safety scores
-2. Fremont - Efficient operations, good maintenance compliance
-3. McCarran - Airport location, high utilization
-4. Henderson - Residential area, moderate traffic
-5. Summerlin - Business district, peak 9-5 demand
-6. The Strip - Tourism area, 24/7 operations
-7. W Sahara - High idle times, needs optimization
-8. N Las Vegas - Growing market, infrastructure challenges
+1. Grand Prairie HQ - Main hub, highest safety scores
+2. Fort Worth - Efficient operations, good maintenance compliance
+3. Justin TX - Airport location, high utilization
+4. Kansas City - Residential area, moderate traffic
+5. OKC - Business district, peak 9-5 demand
+6. Justin TX - Tourism area, 24/7 operations
+7. Grand Prairie HQ - High idle times, needs optimization
+8. OKC - Growing market, infrastructure challenges
 
 Be data-driven, specific, and focus on operational improvements that save money or improve safety."""
 
@@ -273,24 +273,24 @@ class ConfigResponse(BaseModel):
 # Mock fleet data for intelligent responses
 FLEET_DATA = {
     "safety_scores": [
-        {"location": "Downtown", "score": 94, "incidents": 1, "trend": "improving"},
-        {"location": "Fremont", "score": 93, "incidents": 1, "trend": "stable"},
-        {"location": "McCarran", "score": 92, "incidents": 2, "trend": "stable"},
-        {"location": "Henderson", "score": 91, "incidents": 2, "trend": "improving"},
-        {"location": "Summerlin", "score": 89, "incidents": 3, "trend": "declining"},
-        {"location": "The Strip", "score": 88, "incidents": 4, "trend": "stable"},
-        {"location": "W Sahara", "score": 87, "incidents": 4, "trend": "concerning"},
-        {"location": "N Las Vegas", "score": 85, "incidents": 5, "trend": "needs_attention"},
+        {"location": "Grand Prairie HQ", "score": 94, "incidents": 1, "trend": "improving"},
+        {"location": "Fort Worth", "score": 93, "incidents": 1, "trend": "stable"},
+        {"location": "Justin TX", "score": 92, "incidents": 2, "trend": "stable"},
+        {"location": "Kansas City", "score": 91, "incidents": 2, "trend": "improving"},
+        {"location": "OKC", "score": 89, "incidents": 3, "trend": "declining"},
+        {"location": "Justin TX", "score": 88, "incidents": 4, "trend": "stable"},
+        {"location": "Grand Prairie HQ", "score": 87, "incidents": 4, "trend": "concerning"},
+        {"location": "OKC", "score": 85, "incidents": 5, "trend": "needs_attention"},
     ],
     "idle_analysis": [
-        {"location": "W Sahara", "avg_idle_minutes": 180, "vehicles_affected": 8, "cost_impact": 2400},
-        {"location": "N Las Vegas", "avg_idle_minutes": 165, "vehicles_affected": 6, "cost_impact": 1980},
-        {"location": "The Strip", "avg_idle_minutes": 120, "vehicles_affected": 9, "cost_impact": 1620},
-        {"location": "Summerlin", "avg_idle_minutes": 95, "vehicles_affected": 7, "cost_impact": 950},
-        {"location": "McCarran", "avg_idle_minutes": 75, "vehicles_affected": 5, "cost_impact": 750},
-        {"location": "Henderson", "avg_idle_minutes": 65, "vehicles_affected": 4, "cost_impact": 520},
-        {"location": "Downtown", "avg_idle_minutes": 45, "vehicles_affected": 3, "cost_impact": 360},
-        {"location": "Fremont", "avg_idle_minutes": 35, "vehicles_affected": 2, "cost_impact": 280},
+        {"location": "Grand Prairie HQ", "avg_idle_minutes": 180, "vehicles_affected": 8, "cost_impact": 2400},
+        {"location": "OKC", "avg_idle_minutes": 165, "vehicles_affected": 6, "cost_impact": 1980},
+        {"location": "Justin TX", "avg_idle_minutes": 120, "vehicles_affected": 9, "cost_impact": 1620},
+        {"location": "OKC", "avg_idle_minutes": 95, "vehicles_affected": 7, "cost_impact": 950},
+        {"location": "Justin TX", "avg_idle_minutes": 75, "vehicles_affected": 5, "cost_impact": 750},
+        {"location": "Kansas City", "avg_idle_minutes": 65, "vehicles_affected": 4, "cost_impact": 520},
+        {"location": "Grand Prairie HQ", "avg_idle_minutes": 45, "vehicles_affected": 3, "cost_impact": 360},
+        {"location": "Fort Worth", "avg_idle_minutes": 35, "vehicles_affected": 2, "cost_impact": 280},
     ],
     "fuel_efficiency": [
         {"date": "2024-02-05", "efficiency": 8.2, "cost_per_100km": 12.30},
@@ -433,7 +433,7 @@ def idle_analysis_handler(message: str) -> ChatResponse:
         total_affected = sum(loc["vehicles_affected"] for loc in filtered_vehicles)
         response = f"Found {total_affected} vehicles across {len(filtered_vehicles)} locations with idle time exceeding {time_threshold} minutes:"
     else:
-        response = "Idle time analysis across all locations. W Sahara and N Las Vegas need immediate attention:"
+        response = "Idle time analysis across all locations. Grand Prairie HQ and OKC need immediate attention:"
     
     insights = [
         f"Highest idle time: {data[0]['location']} with {data[0]['avg_idle_minutes']} minutes average",
@@ -556,7 +556,7 @@ def vehicle_specific_handler(message: str) -> ChatResponse:
         vehicle_data = {
             "id": f"V{vehicle_num.zfill(3)}",
             "status": "active",
-            "location": "W Sahara",
+            "location": "Grand Prairie HQ",
             "idle_time": 120,
             "fuel_efficiency": 8.4,
             "safety_score": 87,
@@ -913,7 +913,7 @@ async def get_ai_insights():
             type="efficiency",
             priority="high",
             title="Idle Time Optimization",
-            message="W Sahara location shows 3x higher idle time than fleet average. Driver coaching program could reduce this by 60%.",
+            message="Grand Prairie HQ location shows 3x higher idle time than fleet average. Driver coaching program could reduce this by 60%.",
             impact="$2,400/month savings",
             action="Schedule Training"
         ),
@@ -929,7 +929,7 @@ async def get_ai_insights():
             type="revenue",
             priority="medium", 
             title="Peak Hour Optimization",
-            message="Utilization analysis suggests deploying 3 additional vehicles during 4-6PM peak at Summerlin location.",
+            message="Utilization analysis suggests deploying 3 additional vehicles during 4-6PM peak at OKC location.",
             impact="+$450 daily revenue",
             action="Adjust Fleet Distribution"
         ),
@@ -937,7 +937,7 @@ async def get_ai_insights():
             type="safety",
             priority="low",
             title="Best Practice Sharing",
-            message="Fremont location drivers show 12% better safety performance. Their techniques could be applied fleet-wide.",
+            message="Fort Worth location drivers show 12% better safety performance. Their techniques could be applied fleet-wide.",
             impact="15% incident reduction",
             action="Analyze Best Practices"
         )
@@ -965,8 +965,8 @@ async def get_analytics_summary():
             "monthly_savings_potential": 6300
         },
         "risk_indicators": [
-            {"location": "W Sahara", "risk": "high", "reason": "excessive_idle_time"},
-            {"location": "N Las Vegas", "risk": "medium", "reason": "below_avg_safety"},
+            {"location": "Grand Prairie HQ", "risk": "high", "reason": "excessive_idle_time"},
+            {"location": "OKC", "risk": "medium", "reason": "below_avg_safety"},
             {"vehicle": "V023", "risk": "medium", "reason": "maintenance_due"}
         ],
         "optimization_opportunities": [
