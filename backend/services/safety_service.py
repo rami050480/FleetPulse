@@ -15,6 +15,9 @@ from typing import Any
 from geotab_client import GeotabClient
 from models import SafetyBreakdown, TrendDirection, VehicleSafetyScore
 
+
+# K1 speeding policy: counts after 6 mph over posted speed limit
+SPEEDING_THRESHOLD_MPH = 6
 # Exception rule keywords → category mapping (Geotab built-in rule names)
 _CATEGORY_KEYWORDS = {
     "speeding": ["speed", "posted"],
