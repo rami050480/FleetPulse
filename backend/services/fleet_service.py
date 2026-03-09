@@ -8,16 +8,13 @@ from typing import Any
 from geotab_client import GeotabClient
 from models import FleetOverview, LocationStats, Vehicle, VehiclePosition, VehicleStatus
 
-# Budget Rent a Car Las Vegas locations
+# K1 Logistics / K1 Group DFW locations
 LOCATIONS = [
-    {"name": "W Sahara", "address": "3029 W Sahara Ave, Las Vegas, NV 89102", "lat": 36.1445, "lon": -115.1787},
-    {"name": "Golden Nugget", "address": "129 E Fremont St, Las Vegas, NV 89101", "lat": 36.1707, "lon": -115.1440},
-    {"name": "Center Strip", "address": "3735 S Las Vegas Blvd, Las Vegas, NV 89109", "lat": 36.1167, "lon": -115.1723},
-    {"name": "Tropicana", "address": "3801 S Las Vegas Blvd, Las Vegas, NV 89109", "lat": 36.1021, "lon": -115.1724},
-    {"name": "LAS Airport", "address": "7135 Gilespie St, Las Vegas, NV 89119", "lat": 36.0831, "lon": -115.1523},
-    {"name": "Gibson", "address": "7120 S Haven St, Las Vegas, NV 89119", "lat": 36.0627, "lon": -115.1180},
-    {"name": "Henderson Executive", "address": "3500 Executive Terminal Dr, Henderson, NV 89052", "lat": 35.9728, "lon": -115.1344},
-    {"name": "Losee", "address": "2430 Losee Rd, North Las Vegas, NV 89030", "lat": 36.2144, "lon": -115.1250},
+    {"name": "HQ Grand Prairie", "address": "2100 N State Highway 360, Grand Prairie, TX 75050", "lat": 32.7734, "lon": -97.0208},
+    {"name": "Fort Worth Yard", "address": "4200 Gravel Dr, Fort Worth, TX 76118", "lat": 32.8012, "lon": -97.2197},
+    {"name": "Irving Terminal", "address": "1400 S Belt Line Rd, Irving, TX 75060", "lat": 32.8140, "lon": -96.9868},
+    {"name": "DFW Airport Area", "address": "2000 E Airport Fwy, Irving, TX 75062", "lat": 32.8579, "lon": -96.9725},
+    {"name": "Dallas Hub", "address": "10100 N Stemmons Fwy, Dallas, TX 75220", "lat": 32.8672, "lon": -96.8930},
 ]
 
 
@@ -33,7 +30,7 @@ def _classify_status(device_status: dict[str, Any]) -> VehicleStatus:
 
 
 def _nearest_location(lat: float, lon: float) -> str | None:
-    """Return nearest Budget location name if within ~500 m."""
+    """Return nearest K1 location name if within ~500 m."""
     best, best_dist = None, 0.005  # ~500 m in degrees
     for loc in LOCATIONS:
         d = ((lat - loc["lat"]) ** 2 + (lon - loc["lon"]) ** 2) ** 0.5
@@ -46,10 +43,9 @@ def get_fleet_overview() -> FleetOverview:
     client = GeotabClient.get()
     devices = client.get_devices()
     statuses = client.get_device_status_info()
-
     status_map = {s.get("device", {}).get("id"): s for s in statuses}
-    counts = {"active": 0, "idle": 0, "parked": 0, "offline": 0}
 
+    counts = {"active": 0, "idle": 0, "parked": 0, "offline": 0}
     for dev in devices:
         sid = dev.get("id")
         st = status_map.get(sid)
@@ -65,7 +61,8 @@ def get_fleet_overview() -> FleetOverview:
     durations = [
         (t.get("stopDateTime", now) - t.get("startDateTime", now)).total_seconds() / 60
         for t in trips
-        if isinstance(t.get("stopDateTime"), datetime) and isinstance(t.get("startDateTime"), datetime)
+        if isinstance(t.get("stopDateTime"), datetime)
+        and isinstance(t.get("startDateTime"), datetime)
     ]
 
     return FleetOverview(
@@ -103,7 +100,9 @@ def get_vehicles() -> list[Vehicle]:
                     longitude=lon,
                     bearing=st.get("bearing", 0) or 0,
                     speed=st.get("speed", 0) or 0,
-                ) if lat and lon else None,
+                )
+                if lat and lon
+                else None,
                 location_name=_nearest_location(lat, lon) if lat and lon else None,
                 last_contact=st.get("dateTime"),
             )
