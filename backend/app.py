@@ -7,7 +7,7 @@ from routers import dashboard, vehicles, safety, gamification, alerts, monitor, 
 
 app = FastAPI(
     title="FleetPulse API",
-    description="Multi-location fleet intelligence for Budget Rent a Car Las Vegas",
+    description="Multi-location fleet intelligence for K1 Logistics DFW",
     version="1.0.0",
 )
 
