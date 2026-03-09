@@ -32,14 +32,14 @@ const fuelEfficiencyData = [
 ]
 
 const safetyScoreData = [
-  { location: 'McCarran', score: 92, incidents: 2 },
-  { location: 'W Sahara', score: 87, incidents: 4 },
-  { location: 'Downtown', score: 94, incidents: 1 },
-  { location: 'Summerlin', score: 89, incidents: 3 },
-  { location: 'Henderson', score: 91, incidents: 2 },
-  { location: 'N Las Vegas', score: 85, incidents: 5 },
-  { location: 'Fremont', score: 93, incidents: 1 },
-  { location: 'The Strip', score: 88, incidents: 4 },
+  { location: 'Justin TX', score: 92, incidents: 2 },
+  { location: 'Fort Worth', score: 87, incidents: 4 },
+  { location: 'Fort Worth', score: 94, incidents: 1 },
+  { location: 'OKC', score: 89, incidents: 3 },
+  { location: 'Kansas City', score: 91, incidents: 2 },
+  { location: 'OKC', score: 85, incidents: 5 },
+  { location: 'Fort Worth', score: 93, incidents: 1 },
+  { location: 'Justin TX', score: 88, incidents: 4 },
 ]
 
 const utilizationData = [
