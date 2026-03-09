@@ -77,7 +77,7 @@ export default function App() {
             <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
               FleetPulse
             </h1>
-            <p className="text-xs text-gray-500 dark:text-gray-500 light:text-gray-600 hidden sm:block">Budget Rent a Car · Las Vegas · 8 Locations</p>
+            <p className="text-xs text-gray-500 dark:text-gray-500 light:text-gray-600 hidden sm:block">K1 Logistics · DFW · 5 Locations</p>
           </div>
         </div>
         <div className="flex items-center gap-4">
@@ -291,7 +291,7 @@ export default function App() {
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
               📍 Locations
               <span className="text-xs bg-gray-800 px-2 py-1 rounded-full text-gray-400">
-                8 Active
+                5 Active
               </span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
