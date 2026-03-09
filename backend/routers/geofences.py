@@ -95,7 +95,7 @@ async def get_geofences():
                 "color": "#8b5cf6",
                 "displayed": True,
                 "zone_type": "customer",
-                "comment": "Las Vegas Strip north coverage",
+                "comment": "K1 Logistics Strip north coverage",
             },
             {
                 "id": "demo-zone-3",
