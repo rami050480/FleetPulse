@@ -5,7 +5,7 @@ continuously analyzes fleet telemetry, detects anomalies, identifies patterns,
 and generates proactive alerts with severity levels and recommendations.
 
 The monitor runs periodic checks and maintains an in-memory alert history
-with pattern tracking across the 8 Budget Rent a Car Las Vegas locations.
+with pattern tracking across the 5 K1 Logistics locations (FTW, Justin, OKC, Kansas City).
 """
 
 from __future__ import annotations
@@ -28,20 +28,20 @@ _pattern_data: dict[str, Any] = {}
 _monitor_running = False
 _monitor_thread: threading.Thread | None = None
 
-# Budget location centers for geofence checks
+# K1 Logistics location centers for geofence checks
 LOCATION_CENTERS = {
-    "W Sahara": (36.1445, -115.1787),
-    "Golden Nugget": (36.1707, -115.1440),
-    "Center Strip": (36.1167, -115.1723),
-    "Tropicana": (36.1021, -115.1724),
-    "LAS Airport": (36.0831, -115.1523),
-    "Gibson": (36.0627, -115.1180),
-    "Henderson Executive": (35.9728, -115.1344),
-    "Losee": (36.2144, -115.1250),
-}
+    "HQ Grand Prairie": (32.7734, -97.0208),
+    "Fort Worth Yard": (32.8012, -97.2197),
+    "Justin Terminal": (33.0848, -97.2961),
+    "OKC Terminal": (35.3922, -97.5900),
+    "Kansas City Terminal": (39.2967, -94.6680),
 
-# Las Vegas metro bounding box (rough)
-LV_BOUNDS = {"lat_min": 35.90, "lat_max": 36.30, "lon_min": -115.35, "lon_max": -115.00}
+# K1 operations bounding box (DFW to Kansas City, rough)
+OPS_BOUNDS = {"lat_min": 32.00, "lat_max": 40.00, "lon_min": -98.00, "lon_max": -94.00}
+
+# K1 speeding threshold: 6 mph (~10 km/h) over posted speed limit
+SPEEDING_THRESHOLD_MPH = 6
+SPEEDING_THRESHOLD_KMH = 10  # approximate conversion
 
 
 def _uid(parts: str) -> str:
@@ -86,7 +86,7 @@ def _make_alert(
 # ── Anomaly Detection Checks ──────────────────────────────────
 
 def check_speed_anomalies(statuses: list[dict], device_map: dict[str, str]) -> list[Alert]:
-    """Detect vehicles going unusually fast."""
+    """Detect vehicles exceeding speed threshold (6 mph / 10 km/h over limit)."""
     alerts = []
     for s in statuses:
         speed = s.get("speed", 0) or 0
@@ -145,7 +145,7 @@ def check_excessive_idling(statuses: list[dict], device_map: dict[str, str]) -> 
 
 
 def check_off_route_vehicles(statuses: list[dict], device_map: dict[str, str]) -> list[Alert]:
-    """Detect vehicles that are outside the Las Vegas metro area."""
+    """Detect vehicles that are outside the K1 operations area."""
     alerts = []
     for s in statuses:
         lat = s.get("latitude", 0) or 0
@@ -156,11 +156,11 @@ def check_off_route_vehicles(statuses: list[dict], device_map: dict[str, str]) -
         if lat == 0 and lon == 0:
             continue
 
-        if (lat < LV_BOUNDS["lat_min"] or lat > LV_BOUNDS["lat_max"] or
-            lon < LV_BOUNDS["lon_min"] or lon > LV_BOUNDS["lon_max"]):
+        if (lat < OPS_BOUNDS["lat_min"] or lat > OPS_BOUNDS["lat_max"] or
+            lon < OPS_BOUNDS["lon_min"] or lon > OPS_BOUNDS["lon_max"]):
             alerts.append(_make_alert(
                 dev_id, name, "off_route", AlertSeverity.HIGH,
-                f"🗺️ {name} detected outside Las Vegas metro area ({lat:.4f}, {lon:.4f})",
+                f"🗺️ {name} detected outside K1 operations area ({lat:.4f}, {lon:.4f})",
                 "Verify if authorized trip. May indicate unauthorized use."
             ))
     return alerts
@@ -168,9 +168,9 @@ def check_off_route_vehicles(statuses: list[dict], device_map: dict[str, str]) -
 
 def check_after_hours(statuses: list[dict], device_map: dict[str, str]) -> list[Alert]:
     """Detect vehicles driving during off-hours (11 PM - 5 AM local)."""
-    # Las Vegas is UTC-8
+    # Central Time is UTC-6 (CDT) / UTC-5 (CST)
     now_utc = datetime.now(timezone.utc)
-    local_hour = (now_utc.hour - 8) % 24
+    local_hour = (now_utc.hour - 6) % 24
 
     if not (local_hour >= 23 or local_hour < 5):
         return []
@@ -203,7 +203,7 @@ def check_fleet_patterns(statuses: list[dict], device_map: dict[str, str]) -> li
 
         # Unusual fleet activity level
         now_utc = datetime.now(timezone.utc)
-        local_hour = (now_utc.hour - 8) % 24
+        local_hour = (now_utc.hour - 6) % 24
 
         # Late night with high activity is suspicious
         if (local_hour >= 23 or local_hour < 5) and active_pct > 40:
