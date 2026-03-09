@@ -35,19 +35,19 @@ class GeotabClient:
     def __init__(self):
         self.username = os.getenv("GEOTAB_USERNAME", "")
         self.password = os.getenv("GEOTAB_PASSWORD", "")
-        self.database = os.getenv("GEOTAB_DATABASE", "demo_fleetpulse")
+        self.database = os.getenv("GEOTAB_DATABASE", "k1logistics")
         self.server = os.getenv("GEOTAB_SERVER", "my.geotab.com")
         self._api: mygeotab.API | None = None
         self._auth_time: float = 0
 
-    # ── singleton ──────────────────────────────────────────────
+    # ── singleton ─────────────────────────────────────────────
     @classmethod
     def get(cls) -> "GeotabClient":
         if cls._instance is None:
             cls._instance = cls()
         return cls._instance
 
-    # ── auth ───────────────────────────────────────────────────
+    # ── auth ─────────────────────────────────────────────────
     def _needs_auth(self) -> bool:
         return self._api is None or (time.time() - self._auth_time > 3600)
 
