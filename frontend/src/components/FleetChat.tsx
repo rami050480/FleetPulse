@@ -26,34 +26,34 @@ const responses = {
     pattern: /(safety|scores?|safest|dangerous|accident|incident)/i,
     response: "Based on current safety analytics, here are the safety scores by location:",
     data: [
-      { location: 'Downtown', score: 94, color: '#10b981' },
-      { location: 'Fremont', score: 93, color: '#10b981' },
-      { location: 'McCarran', score: 92, color: '#10b981' },
-      { location: 'Henderson', score: 91, color: '#10b981' },
-      { location: 'Summerlin', score: 89, color: '#f59e0b' },
-      { location: 'The Strip', score: 88, color: '#f59e0b' },
-      { location: 'W Sahara', score: 87, color: '#f59e0b' },
-      { location: 'N Las Vegas', score: 85, color: '#ef4444' }
+      { location: 'Fort Worth', score: 94, color: '#10b981' },
+      { location: 'Fort Worth', score: 93, color: '#10b981' },
+      { location: 'Justin TX', score: 92, color: '#10b981' },
+      { location: 'Kansas City', score: 91, color: '#10b981' },
+      { location: 'OKC', score: 89, color: '#f59e0b' },
+      { location: 'Justin TX', score: 88, color: '#f59e0b' },
+      { location: 'Fort Worth', score: 87, color: '#f59e0b' },
+      { location: 'OKC', score: 85, color: '#ef4444' }
     ],
     chart: 'bar' as const,
-    insight: "Downtown and Fremont lead with 94% and 93% safety scores. N Las Vegas needs attention with 85% - recommend driver coaching program."
+    insight: "Fort Worth and Fort Worth lead with 94% and 93% safety scores. OKC needs attention with 85% - recommend driver coaching program."
   },
   
   idleTime: {
     pattern: /(idle|idling|waste|wasted|stationary|parked)/i,
     response: "Here's the idle time analysis across locations:",
     data: [
-      { location: 'W Sahara', minutes: 180, color: '#ef4444' },
-      { location: 'N Las Vegas', minutes: 165, color: '#ef4444' },
-      { location: 'The Strip', minutes: 120, color: '#f59e0b' },
-      { location: 'Summerlin', minutes: 95, color: '#f59e0b' },
-      { location: 'McCarran', minutes: 75, color: '#10b981' },
-      { location: 'Henderson', minutes: 65, color: '#10b981' },
-      { location: 'Downtown', minutes: 45, color: '#10b981' },
-      { location: 'Fremont', minutes: 35, color: '#10b981' }
+      { location: 'Fort Worth', minutes: 180, color: '#ef4444' },
+      { location: 'OKC', minutes: 165, color: '#ef4444' },
+      { location: 'Justin TX', minutes: 120, color: '#f59e0b' },
+      { location: 'OKC', minutes: 95, color: '#f59e0b' },
+      { location: 'Justin TX', minutes: 75, color: '#10b981' },
+      { location: 'Kansas City', minutes: 65, color: '#10b981' },
+      { location: 'Fort Worth', minutes: 45, color: '#10b981' },
+      { location: 'Fort Worth', minutes: 35, color: '#10b981' }
     ],
     chart: 'bar' as const,
-    insight: "W Sahara has 3x more idle time than fleet average (60min). Vehicle #42 has been stationary for 6 hours outside its zone - dispatching maintenance check."
+    insight: "Fort Worth has 3x more idle time than fleet average (60min). Vehicle #42 has been stationary for 6 hours outside its zone - dispatching maintenance check."
   },
 
   fuelEfficiency: {
@@ -82,7 +82,7 @@ const responses = {
       { category: 'Driver Training', savings: 900, color: '#f59e0b' }
     ],
     chart: 'pie' as const,
-    insight: "Potential monthly savings: $6,300. Top recommendation: Implement AI route optimization for 15% fuel savings. Start with W Sahara location."
+    insight: "Potential monthly savings: $6,300. Top recommendation: Implement AI route optimization for 15% fuel savings. Start with Fort Worth location."
   },
 
   utilization: {
