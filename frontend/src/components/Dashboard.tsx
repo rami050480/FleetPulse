@@ -50,8 +50,8 @@ const cards = [
     trend: 'up'
   },
   { 
-    key: 'total_distance_km', 
-    label: 'Distance (km)', 
+    key: 'total_distance_miles', 
+    label: 'Distance (mi)', 
     icon: '🛣️', 
     color: 'from-cyan-500 to-cyan-700',
     sparkline: [1200, 1350, 1450, 1380, 1520, 1680],
@@ -66,8 +66,8 @@ const cards = [
     trend: 'stable'
   },
   { 
-    key: 'avg_trip_distance_km', 
-    label: 'Avg Distance (km)', 
+    key: 'avg_trip_distance_miles', 
+    label: 'Avg Distance (mi)', 
     icon: '📏', 
     color: 'from-indigo-500 to-indigo-700',
     sparkline: [12, 11, 13, 12, 14, 13],
