@@ -77,7 +77,7 @@ export default function App() {
             <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
               FleetPulse
             </h1>
-            <p className="text-xs text-gray-500 dark:text-gray-500 light:text-gray-600 hidden sm:block">K1 Logistics · DFW · 5 Locations</p>
+            <p className="text-xs text-gray-500 dark:text-gray-500 light:text-gray-600 hidden sm:block">K1 Logistics · FTW · Justin · OKC · Kansas City · 5 Locations</p>
           </div>
         </div>
         <div className="flex items-center gap-4">
