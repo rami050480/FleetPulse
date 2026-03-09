@@ -56,9 +56,9 @@ class FleetOverview(BaseModel):
     parked: int = 0
     offline: int = 0
     total_trips_today: int = 0
-    total_distance_km: float = 0
+    total_distance_miles: float = 0
     avg_trip_duration_min: float = 0
-    avg_trip_distance_km: float = 0
+    avg_trip_distance_miles: float = 0
 
 
 class LocationStats(BaseModel):
