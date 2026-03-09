@@ -85,8 +85,8 @@ export default function FleetMap({ vehicles, locations }: Props) {
   const [showRoutes, setShowRoutes] = useState(false)
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null)
 
-  // Las Vegas center
-  const center: [number, number] = [36.12, -115.16]
+  // DFW center
+  const center: [number, number] = [32.82, -97.00]
 
   // Filter vehicles by selected location
   const filteredVehicles = useMemo(() => {
