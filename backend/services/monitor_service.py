@@ -5,7 +5,7 @@ continuously analyzes fleet telemetry, detects anomalies, identifies patterns,
 and generates proactive alerts with severity levels and recommendations.
 
 The monitor runs periodic checks and maintains an in-memory alert history
-with pattern tracking across the 5 K1 Logistics locations (FTW, Justin, OKC, Kansas City).
+with pattern tracking across the 4 K1 Logistics locations (FTW, Justin, OKC, Kansas City).
 """
 
 from __future__ import annotations
@@ -30,7 +30,6 @@ _monitor_thread: threading.Thread | None = None
 
 # K1 Logistics location centers for geofence checks
 LOCATION_CENTERS = {
-    "HQ Grand Prairie": (32.7734, -97.0208),
     "Fort Worth Yard": (32.8012, -97.2197),
     "Justin Terminal": (33.0848, -97.2961),
     "OKC Terminal": (35.3922, -97.5900),
