@@ -106,7 +106,7 @@ def _build_html_report(fleet_data: dict[str, Any], period: str) -> str:
 <body>
     <div class="header">
         <h1>🚗 FleetPulse Report</h1>
-        <p>Budget Rent a Car · Las Vegas · {period} Report</p>
+        <p>K1 Logistics · {period} Report</p>
         <p>Generated: {now.strftime('%B %d, %Y at %I:%M %p UTC')}</p>
     </div>
 
