@@ -10,7 +10,6 @@ from models import FleetOverview, LocationStats, Vehicle, VehiclePosition, Vehic
 
 # K1 Logistics / K1 Group locations (FTW, Justin, OKC, Kansas City)
 LOCATIONS = [
-    {"name": "HQ Grand Prairie", "address": "2100 N State Highway 360, Grand Prairie, TX 75050", "lat": 32.7734, "lon": -97.0208},
     {"name": "Fort Worth Yard", "address": "4200 Gravel Dr, Fort Worth, TX 76118", "lat": 32.8012, "lon": -97.2197},
     {"name": "Justin Terminal", "address": "17176 FM156, Justin, TX 76247", "lat": 33.0848, "lon": -97.2961},
     {"name": "OKC Terminal", "address": "4012 S Purdue Ave, Oklahoma City, OK 73179", "lat": 35.3922, "lon": -97.5900},
