@@ -64,6 +64,9 @@ def get_fleet_overview() -> FleetOverview:
         and isinstance(t.get("startDateTime"), datetime)
     ]
 
+        # Convert km to miles for K1 Logistics (US operations)
+    KM_TO_MILES = 0.621371
+    total_dist_miles = total_dist * KM_TO_MILES
     return FleetOverview(
         total_vehicles=len(devices),
         active=counts["active"],
@@ -71,11 +74,10 @@ def get_fleet_overview() -> FleetOverview:
         parked=counts["parked"],
         offline=counts["offline"],
         total_trips_today=len(trips),
-        total_distance_km=round(total_dist, 1),
+        total_distance_miles=round(total_dist_miles, 1),
         avg_trip_duration_min=round(sum(durations) / max(len(durations), 1), 1),
-        avg_trip_distance_km=round(total_dist / max(len(trips), 1), 1),
+        avg_trip_distance_miles=round(total_dist_miles / max(len(trips), 1), 1),
     )
-
 
 def get_vehicles() -> list[Vehicle]:
     client = GeotabClient.get()
