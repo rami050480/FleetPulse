@@ -76,7 +76,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
         {payload.map((entry: any, index: number) => (
           <p key={index} className="text-sm" style={{ color: entry.color }}>
             {entry.name}: {entry.value}
-            {entry.name === 'Efficiency' && ' L/100km'}
+            {entry.name === 'Efficiency' && ' MPG'}
             {entry.name === 'Score' && '%'}
           </p>
         ))}
