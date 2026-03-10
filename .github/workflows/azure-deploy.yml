@@ -23,7 +23,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Log in to ACR via Azure CLI
-                        run: az acr login --name k1fleetpulseacr
+            run: az acr login --name k1fleetpulseacr
 
       - name: Build and push image
         run: |
