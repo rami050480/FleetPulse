@@ -34,6 +34,7 @@ LOCATION_CENTERS = {
     "Justin Terminal": (33.0848, -97.2961),
     "OKC Terminal": (35.3922, -97.5900),
     "Kansas City Terminal": (39.2967, -94.6680),
+    }
 
 # K1 operations bounding box (DFW to Kansas City, rough)
 OPS_BOUNDS = {"lat_min": 32.00, "lat_max": 40.00, "lon_min": -98.00, "lon_max": -94.00}
