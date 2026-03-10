@@ -66,7 +66,7 @@ def get_fleet_overview() -> FleetOverview:
 
         # Convert km to miles for K1 Logistics (US operations)
     KM_TO_MILES = 0.621371
-        LITERS_TO_GALLONS = 0.264172
+    LITERS_TO_GALLONS = 0.264172
     total_dist_miles = total_dist * KM_TO_MILES
     return FleetOverview(
         total_vehicles=len(devices),
