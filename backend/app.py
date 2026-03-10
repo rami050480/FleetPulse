@@ -2,6 +2,8 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import logging
+logger = logging.getLogger("fleetpulse")
 
 from routers import dashboard, vehicles, safety, gamification, alerts, monitor, ai_chat, coaching, maintenance, trips, reports, geofences, fuel, compliance, data_connector
 
@@ -38,14 +40,20 @@ app.include_router(data_connector.router, prefix="/api/data-connector", tags=["D
 
 @app.on_event("startup")
 async def startup_event():
-    from services.monitor_service import start_monitor
-    start_monitor()
-
+    try:
+        from services.monitor_service import start_monitor
+        start_monitor()
+        logger.info("Monitor started successfully")
+    except Exception as e:
+        logger.warning(f"Monitor startup skipped: {e}")
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    from services.monitor_service import stop_monitor
-    stop_monitor()
+    try:
+        from services.monitor_service import stop_monitor
+        stop_monitor()
+    except Exception as e:
+        logger.warning(f"Monitor shutdown skipped: {e}")
 
 
 @app.get("/api/health")
